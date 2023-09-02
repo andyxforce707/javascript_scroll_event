@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="testscroll.css" />
+  </head>
+  <body>
+    <section>
+      <h2>Scroll to see the animation</h2>
+      <code>The Scroll Event is Fun :)</code>
+    </section>
+
+    <div class="container"></div>
+
+    <script>
+      let name = 'andy';
+      for (let i = 0; i < 30; i++) {
+        let div = document.createElement('div');
+        // div.innerHTML = `<h2>${name.charAt(Math.floor(Math.random() * 5 - 1))}</h2>`;
+        div.style.display = 'flex';
+        div.style.justifyContent = 'center';
+        div.style.alignItems = 'center';
+        div.classList.add('box');
+        console.log(randomColor());
+        document.querySelector('.container').append(div);
+      }
+
+      // function to give random color
+      function randomColor() {
+        let chars = '1234567890abcdef';
+        let colorLength = 6;
+        let color = '';
+
+        let count = 0;
+
+        for (let i = 0; i < colorLength; i++) {
+          color += chars.charAt(Math.round(Math.random() * 16 + 1));
+        }
+
+        return `#${color}`;
+      }
+
+      //
+
+      const boxes = document.querySelectorAll('.box');
+      for (let i = 0; i < boxes.length; i++) {
+        if (i % 2 == 0) {
+          let name = 'andyxforce';
+          boxes[i].innerHTML = name
+            .split('')
+            .map((n, i) => `<h2 style="color: brown; filter:hue-rotate(${i * 10})">${n}</h2>`)
+            .join('');
+        } else {
+          let text = '!#^*(*&!#%&';
+          let rand = text.charAt(Math.floor(Math.random() * text.length + 1));
+          boxes[i].innerHTML = `${rand}`;
+          if (boxes[i].innerHTML == '') {
+            boxes[i].innerHTML = 'zero';
+          }
+        }
+      }
+      function scrollTrigger() {
+        boxes.forEach((b) => {
+          if (b.offsetTop < window.scrollY) {
+            b.classList.add('show');
+            b.style.background = randomColor();
+            b.style.filter = 'brightness(1)';
+            let huerotate = Math.round(Math.random() * 360 + 1);
+            b.style.filter = `hue-rotate(${huerotate}deg)`;
+          } else {
+            b.classList.remove('show');
+            b.style.filter = 'brightness(0)';
+          }
+        });
+      }
+
+      window.addEventListener('scroll', scrollTrigger);
+    </script>
+  </body>
+</html>
